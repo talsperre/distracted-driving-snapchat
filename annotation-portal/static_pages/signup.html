@@ -1,0 +1,103 @@
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="bootswatch.css">
+
+  <link rel="stylesheet" href="bootswatch.css">
+
+<div id="navbar"></div>
+<title>Sign Up</title>
+<style>
+@media all and (min-width: 480px) {
+  .Signup {
+    text-align: center;
+  }
+
+  .App-header {
+    /* background-color: #222; */
+    height: 70px;
+    padding: 5px;
+    color: black;
+    text-align: center;
+  }
+
+  .App-title {
+    font-size: 1.5em;
+  }
+
+  .App-intro {
+    font-size: large;
+  }
+  .Signup form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+}
+</style>
+
+<div class=Signup>
+  <header class="App-header">
+    <h1>Signup</h1>
+  </header>
+  <form class="" action="index.html" method="post">
+
+  </form>
+  <form action="/register" method="post">
+    <div class="form-group">
+      <label for="InputEmail">Email address</label>
+      <input type="email" class="form-control" name="email" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email" onKeyPress="emailHandler()" onKeyUp="emailHandler()">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+      <label for="InputPassword">Password</label>
+      <input type="password" class="form-control" name="password" id="InputPassword" placeholder="Password" onKeyPress="passHandler()" onKeyUp="passHandler()">
+      <small id="emailHelp" class="form-text text-muted">Password must consist of at least 8 characters, one upper case and one special character.</small>
+    </div>
+    <div class="form-group">
+      <label for="InputPassword">Re Enter Password</label>
+      <input type="password" class="form-control" id="InputPassword2" placeholder="Password" onKeyPress="rePassHandler()" onKeyUp="rePassHandler()">
+    </div>
+    <button type="submit" class="btn btn-primary" id="subButton" disabled>Submit</button>
+  </form>
+  </div>
+
+<script type="text/javascript">
+  var email = "";
+  var password = "";
+  var rePassword = "";
+  function emailHandler () {
+    email = document.getElementById('InputEmail').value;
+    validateForm();
+  }
+  function passHandler () {
+    password = document.getElementById('InputPassword').value;
+    validateForm();
+  }
+  function rePassHandler () {
+    rePassword = document.getElementById('InputPassword2').value;
+    validateForm();
+  }
+
+  function validateForm() {
+    var email_re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    isEmailValid =  email_re.test(String(email).toLowerCase());
+    var pass_re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
+    isPassValid = pass_re.test(String(password));
+    isRePassValid = (rePassword === password)
+    if(isEmailValid && isPassValid && isRePassValid) {
+      document.getElementById('subButton').disabled=false;
+    } else {
+      document.getElementById('subButton').disabled=true;
+    }
+  }
+
+  // function submitForm() {
+  //   //make API call
+  //
+  //   //re route to OTP
+  // }
+
+  $(function(){
+      $("#navbar").load("navbar.html");
+    });
+</script>

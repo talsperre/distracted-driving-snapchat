@@ -1,0 +1,231 @@
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="bootswatch.css">
+  <title>Dashboard</title>
+
+<style>
+  .App-header {
+    /* background-color: #222; */
+    height: 70px;
+    padding: 5px;
+    color: black;
+    text-align: center;
+  }
+  .video {
+    text-align: center;
+  }
+
+
+</style>
+
+
+<!-- <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="./home.html">Annotation Portal</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="./home.html">Home</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li onload="getVal()"><a id="num"> </a></li>
+      <li><a href="#" onclick="logoutUser()"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+    </ul>
+  </div>
+</nav> -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="./home.html">Annotation Portal</a>
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="./home.html">Home</a>
+      </li>
+    </ul>
+    <div class="form-inline my-2 my-lg-0">
+      <ul class="nav navbar-nav navbar-right">
+        <!-- <li onload="getVal()"><a id="num"> 5</a></li> -->
+        <li class="nav-item" onload="getVal()">
+          <a id="num" class="nav-link">Videos: 0</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="logoutUser()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div>
+    <header class="App-header">
+      <h1 class="App-title">Dashboard</h1>
+    </header>
+    <hr>
+    <div class="row">
+    <div class="col-sm video">
+      <video controls onEnded="videoEnded()" src="https://drive.google.com/a/iiit.ac.in/uc?id=1cauUEJ-5mkbUM8zpABnApccBPgHv7IU0" id="video">
+        Video couldn't be loaded.
+      </video>
+      <br/>
+      <small>You can only fill the form after you've finished watching the video.</small>
+      <br />
+      <small>You may press the corresponding number on your keyboard to toggle the checkbox.</small>
+    </div>
+    <div class="col-sm">
+      <form onsubmit="event.preventDefault(); submitAnnotation();">
+        <legend> Categories </legend>
+        <div class="form-check">
+          <label class="form-check-label"><input class="form-check-input" type="checkbox" name="outdoors" id="49" value="outdoors" disabled>1. Outdoors / Nature</label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label"><input class="form-check-input" type="checkbox" name="fashion" id="50" value="fashion" disabled>2. Fashion / Beauty / Self-Portraits</label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label"><input class="form-check-input" type="checkbox" name="social" id="51" value="social" disabled>3. Social Setting</label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label"><input class="form-check-input" type="checkbox" name="food" id="52" value="food" disabled>4. Food / Drinks</label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label"><input class="form-check-input" type="checkbox" name="health" id="53" value="health" disabled>5. Health / Fitness</label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label"><input class="form-check-input" type="checkbox" name="driving" id="54" value="driving" disabled>6. Driving</label>
+        </div>
+        <div class="form-group form-inline">
+          <label for="width">Other: &nbsp;</label>
+          <input type="text" class="form-control" id="width" disabled>
+        </div>
+        <hr>
+        <legend>Details</legend>
+        <div class="form-group form-inline">
+          <label for="depth">Further details: &nbsp;</label>
+          <input type="text" class="form-control" id="depth" disabled>
+        </div>
+        <hr>
+        <legend>Dangerous</legend>
+        <h6>Is this video dangerous/harmful?</h6>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="dangerous" id="optionsRadios1" value="true" disabled>
+            Yes
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="dangerous" id="optionsRadios2" value="false" disabled>
+            No
+          </label>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary" id="subButton" disabled>Submit</button>
+      </form>
+      <br />
+      <form class="next" action="" method="post" onsubmit="requestNewVideo()">
+        <button type="submit" class="btn btn-primary" id="subButton2" disabled>Request Next Video</button>
+      </form>
+    </div>
+  </div>
+
+
+</div>
+
+<script type="text/javascript">
+
+  $.getJSON( "/getContent", function( response ) {
+    $("#video").attr('src', response.videoPath);
+    $("#num").text("Videos: " + toString(response.numAnnotated));
+  });
+
+  $("input").bind("change", validateForm);
+  $("#width").focusin(function(){
+        window.onkeyup = null;
+    });
+  $("#depth").focusin(function(){
+        window.onkeyup = null;
+    });
+  $("#width").focusout(function(){
+      window.onkeyup = function(e) {
+       var key = e.keyCode ? e.keyCode : e.which;
+       if (key>=49 && key<=55) {
+         k = "#" + key.toString();
+         $(k).prop("checked", !$(k).prop("checked"))
+       }
+       validateForm();
+      }
+    });
+  $("#depth").focusout(function(){
+      window.onkeyup = function(e) {
+       var key = e.keyCode ? e.keyCode : e.which;
+       if (key>=49 && key<=54) {
+         k = "#" + key.toString();
+         $(k).prop("checked", !$(k).prop("checked"))
+       }
+       validateForm();
+      }
+    });
+
+  var isVideoEnded = false;
+  var isSubmitted = false;
+  var checks = {};
+  function videoEnded() {
+    isVideoEnded = true;
+    $("input").attr('disabled', false);
+    window.onkeyup = function(e) {
+     var key = e.keyCode ? e.keyCode : e.which;
+     if (key>=49 && key<=55) {
+       k = "#" + key.toString();
+       $(k).prop("checked", !$(k).prop("checked"))
+     }
+     validateForm();
+    }
+  }
+
+  function validateForm() {
+    var isValidForm = false;
+    inputs = document.getElementsByTagName("input");
+    for (var i=0; i<6; i++) {
+      if (inputs[i].checked) {
+        isValidForm = true;
+        break;
+      }
+    }
+    if (!isValidForm) {
+      if (inputs[6].value !== "")
+        isValidForm = true;
+    }
+
+    if (!inputs[8].checked && !inputs[9].checked) {
+      isValidForm = false;
+    }
+
+    if (isValidForm) {
+      $("#subButton").attr('disabled', false);
+    } else {
+      $("#subButton").attr('disabled', true);
+    }
+  }
+
+  function submitAnnotation() {
+    // API call
+
+    var successful = true;
+    if(successful)
+      $("#subButton2").attr('disabled', false);
+  }
+
+  function requestNewVideo() {
+    location.reload(true);
+  }
+
+  function logoutUser() {
+    //make API call
+    $.ajax({
+      type: "POST",
+      url: "/logout",
+    });
+  }
+
+</script>

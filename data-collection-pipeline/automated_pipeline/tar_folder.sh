@@ -1,0 +1,1 @@
+/home/shashanks/Projects/torchenv/bin/python /home/shashanks/Projects/Independent-Project/deploy/final_pipeline/tar_folder.py --video_dir /home/shashanks/final_dataset/videos/ --output_dir /home/shashanks/final_dataset/tar/

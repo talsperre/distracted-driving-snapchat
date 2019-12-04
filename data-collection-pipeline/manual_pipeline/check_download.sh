@@ -1,0 +1,1 @@
+/home/shashanks/Projects/torchenv/bin/python /home/shashanks/Projects/Independent-Project/deploy/manual_pipeline/check_download.py --output_dir /home/shashanks/final_dataset/csv_logs/missing --csv_dir /home/shashanks/final_dataset/csv_logs/csvs --video_dir /home/shashanks/final_dataset/videos 

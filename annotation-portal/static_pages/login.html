@@ -1,0 +1,84 @@
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <title>Login</title>
+  <link rel="stylesheet" href="bootswatch.css">
+<!-- <script src='https://www.google.com/recaptcha/api.js'></script> -->
+
+<div id="navbar"></div>
+<style>
+@media all and (min-width: 480px) {
+  .Login {
+    text-align: center;
+  }
+
+  .App-header {
+    /* background-color: #222; */
+    height: 70px;
+    padding: 5px;
+    color: black;
+    text-align: center;
+  }
+
+  .App-title {
+    font-size: 1.5em;
+  }
+
+  .App-intro {
+    font-size: large;
+  }
+  .Login form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+}
+</style>
+
+<div class=Login>
+    <header class="App-header">
+      <h1>Login</h1>
+    </header>
+<form action="/login" method="POST">
+  <div class="form-group">
+    <label for="InputEmail">Email address</label>
+    <input type="email" class="form-control" id="InputEmail" name="email" aria-describedby="emailHelp" placeholder="Enter email" onKeyPress="emailHandler()" onKeyUp="emailHandler()">
+  </div>
+  <div class="form-group">
+    <label for="InputPassword">Password</label>
+    <input type="password" class="form-control" id="InputPassword" name="password" placeholder="Password" onKeyPress="passHandler()" onKeyUp="passHandler()">
+  </div>
+  <!-- <div class="g-recaptcha" data-sitekey="6LfPyXAUAAAAAMwWUlIV9HSc91XjQINt4RBXvkDO"></div> -->
+  <button type="submit" class="btn btn-primary" id="subButton" disabled>Submit</button>
+</form>
+</div>
+
+<script type="text/javascript">
+  var email = "";
+  var password = "";
+
+  function emailHandler () {
+    email = document.getElementById('InputEmail').value;
+    validateForm();
+  }
+  function passHandler () {
+    password = document.getElementById('InputPassword').value;
+    validateForm();
+  }
+
+  function validateForm() {
+    var email_re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    isEmailValid =  email_re.test(String(email).toLowerCase());
+    var pass_re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
+    isPassValid = pass_re.test(String(password));
+    if(isEmailValid && isPassValid) {
+      document.getElementById('subButton').disabled=false;
+    } else {
+      document.getElementById('subButton').disabled=true;
+    }
+  }
+
+  $(function(){
+      $("#navbar").load("navbar.html");
+    });
+
+</script>

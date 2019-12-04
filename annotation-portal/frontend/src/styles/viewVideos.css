@@ -1,0 +1,20 @@
+@media all and (min-width: 480px) {
+  .ViewVideos {
+    padding: 60px 0;
+  }
+
+  .ViewVideos form {
+    margin: 0 auto;
+    max-width: 320px;
+    text-align: center;
+  }
+}
+
+ButtonToolbar {
+  display: flex;
+   justify-content: center;
+}
+
+.buttons {
+  text-align: center;
+}

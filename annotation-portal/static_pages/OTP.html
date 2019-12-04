@@ -1,0 +1,85 @@
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="bootswatch.css">
+
+<div id="navbar"></div>
+
+<title> OTP </title>
+<style>
+@media all and (min-width: 480px) {
+  .OTP {
+    text-align: center;
+  }
+
+  .App-header {
+    /* background-color: #222; */
+    height: 70px;
+    padding: 5px;
+    color: black;
+    text-align: center;
+  }
+
+  .App-title {
+    font-size: 1.5em;
+  }
+
+  .App-intro {
+    font-size: large;
+  }
+  .OTP form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+}
+</style>
+
+<div class=OTP>
+  <header class="App-header">
+    <h1>Enter OTP</h1>
+  </header>
+  <div> Please enter OTP sent to your email to confirm your account. </div>
+  <form action="/verifyOTP" method="POST">
+    <div class="form-group">
+      <label for="InputEmail">Email address</label>
+      <input type="email" class="form-control" name="email" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email" onKeyPress="emailHandler()" onKeyUp="emailHandler()">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+    <div class="form-group">
+        <input class="form-control" type="text" placeholder="OTP" name="OTP" onKeyPress="OTPHandler()" id="InputOTP" onKeyUp="OTPHandler()">
+        <small id="emailHelp" class="form-text text-muted">OTP must be 6 digits</small>
+    </div>
+    <button type="submit" class="btn btn-primary" id="subButton" disabled>Submit</button>
+  </form>
+  </div>
+
+<script type="text/javascript">
+  var email = "";
+  var OTP = "";
+
+  function emailHandler () {
+    email = document.getElementById('InputEmail').value;
+    validateForm();
+  }
+  function OTPHandler () {
+    OTP = document.getElementById('InputOTP').value;
+    validateForm();
+  }
+
+  function validateForm() {
+    var email_re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    isEmailValid =  email_re.test(String(email).toLowerCase());
+    var OTP_re = new RegExp("^[0-9]{6}$");
+    isOTPValid = OTP_re.test(String(OTP));
+    if(isEmailValid && isOTPValid) {
+      document.getElementById('subButton').disabled=false;
+    } else {
+      document.getElementById('subButton').disabled=true;
+    }
+  }
+
+  $(function(){
+      $("#navbar").load("navbar.html");
+    });
+</script>
