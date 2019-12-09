@@ -4,7 +4,7 @@
 
 Drinking & Driving | Passenger Distraction | Distracted Driving on Bikes
 :----------------------:|:-------------------------:|:-------------------------:|
-![video1](./sample_videos/distracted-1.gif)  |  ![video2](./sample_videos/distracted-2.gif) |  ![video2](./sample_videos/distracted-3.gif)
+<img src="./sample_videos/distracted-1.gif" width=150 height=250> |  <img src="./sample_videos/distracted-2.gif" width=150 height=250> | <img src="./sample_videos/distracted-3.gif" width=150 height=250>
 
 This repository contains code and data required to reproduce the results of **"Driving the Last Mile: Characterizing and Understanding Distracted Driving Posts on Social Networks"**. ([**Paper link**](http://precog.iiitd.edu.in/pubs/Distracted-Driving-Pre-Print-Paper-ICWSM-2020.pdf))
 
