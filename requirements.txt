@@ -61,7 +61,7 @@ nbformat==4.4.0
 networkx==2.4
 notebook==6.0.0
 numba==0.46.0
-numpy==1.17.0
+numpy==1.22.0
 numpydoc==0.9.1
 oauthlib==3.1.0
 open3d-python==0.7.0.0
