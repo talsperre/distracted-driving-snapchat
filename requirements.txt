@@ -81,7 +81,7 @@ pptk==0.1.0
 prometheus-client==0.7.1
 prompt-toolkit==2.0.9
 ptyprocess==0.6.0
-py==1.8.0
+py==1.10.0
 pycparser==2.19
 pyflann==1.6.14
 pyglet==1.3.2
